@@ -1,28 +1,24 @@
 package ru.netology.javaqa.javaqamvn;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Game {
 
-    private ArrayList<Player> players;
+    private Map<String, Player> players;
 
     public Game() {
-        this.players = new ArrayList<>();
+        this.players = new HashMap<>();
     }
 
     public void register(Player player) {
         if (!registered(player.getName())) {
-            players.add(player);
+            players.put(player.getName(), player);
         }
     }
 
     public boolean registered(String name) throws NotRegisteredException {
-        for (Player player : players) {
-            if (name.equals(player.getName())) {
-                return true;
-            }
-        }
-        return false;
+        return players.containsKey(name);
     }
 
     public int round(String playerName1, String playerName2) {
@@ -43,12 +39,7 @@ public class Game {
     }
 
     public Player findByName(String name) throws NotRegisteredException {
-        for (Player player : players) {
-            if (name.equals(player.getName())) {
-                return player;
-            }
-        }
-        return null;
+        return players.get(name);
     }
 
 }
